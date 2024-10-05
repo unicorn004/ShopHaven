@@ -40,9 +40,9 @@ router.get('/', userIsLoggedIn, async function (req, res) {
         
         if(cart && cart.products.length > 0) somethingInCart = true;
 
-        let rnproducts = await productModel.aggregate([{
-            $sample: {size: 3}
-        }])
+        let rnproducts = await productModel.aggregate([{ $sample: { size: 3 } }]) || [];
+
+        console.log(rnproducts); 
 
         // Restructure the array into an object
         const formattedResult = result.reduce((acc, curr) => {
@@ -50,7 +50,12 @@ router.get('/', userIsLoggedIn, async function (req, res) {
             return acc;
         }, {});
 
-        res.render("index",{products: formattedResult, rnproducts, somethingInCart, cartCount: cart.products.length}); 
+        res.render("index",{
+            products: formattedResult,
+            rnproducts, somethingInCart, 
+            cartCount: cart ?cart.products.length : 0,
+        });
+
     } catch (error) {
         console.error(error); // Log the error for debugging
         res.status(500).json({ message: 'Internal server error' }); // Send an error response

@@ -4,6 +4,11 @@ const Joi = require('joi');
 // Order schema (Mongoose)
 const orderSchema = mongoose.Schema(
     {
+        orderId: {
+            type: String,
+            required: true,
+            unique: true, // Ensures order ID is unique
+        },
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User', // Refers to User collection
@@ -23,7 +28,6 @@ const orderSchema = mongoose.Schema(
         },
         address: {
             type: String,
-            required: true,
             minlength: 5, // Ensures address has at least 5 characters
         },
         status: {

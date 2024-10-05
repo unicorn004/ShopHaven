@@ -8,6 +8,8 @@ const productRouter = require("./Routes/product");
 const categoriesRouter = require("./Routes/category");
 const userRouter = require("./Routes/user");
 const cartRouter = require("./Routes/cart");
+const paymentRouter = require("./Routes/payment");
+const orderRouter = require("./Routes/order");
 
 const expressSession = require("express-session");
 const path = require("path");
@@ -39,5 +41,7 @@ app.use('/products', productRouter);
 app.use('/categories', categoriesRouter);
 app.use('/users', userRouter);
 app.use('/cart', cartRouter);
+app.use('/payment', paymentRouter);
+app.use('/order', orderRouter);
 
 app.listen(3000);

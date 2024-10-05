@@ -21,7 +21,7 @@
                 </div>
                 <% cart.forEach(elem=> { %>
                     <div class="flex items-center mt-4">
-                        <img src="data:image/jpg;base64, <%= elem.image.toString('base64') %>" alt="<%= elem.name %>"
+                        <img src="data:image/jpeg;base64, <%= elem.image.toString('base64') %>" alt="<%= elem.name %>"
                             class="w-16 h-16 rounded">
                         <div class="ml-4">
                             <p>
@@ -194,12 +194,12 @@
                 axios.post('/payment/create/orderId')
                     .then(function (response) {
                         var options = {
-                            "key": "rzp_test_cAa3gCF0eP8i4R", // Enter the Key ID generated from the Dashboard
+                            "key": "rzp_test_jG8LkhdU5nzzoG", // Enter the Key ID generated from the Dashboard
                             "amount": response.data.amount, // Amount in currency subunits. Default currency is INR.
                             "currency": response.data.currency,
-                            "name": "BlinkIt",
+                            "name": "ShopHaven",
                             "description": "Test Transaction",
-                            "image": "https://example.com/your_logo",
+                            "image": "/public/images/ShopHeaven.png",
                             "order_id": response.data.id,
                             "handler": function (response) {
                                 axios.post('/payment/api/payment/verify', {
@@ -216,8 +216,8 @@
                                     });
                             },
                             "prefill": {
-                                "name": "Harsh Sharma",
-                                "email": "harsh.sharma@example.com",
+                                "name": "Tanmay Sinkar",
+                                "email": "tanmaysinkar@gmail.com",
                                 "contact": "9000090000"
                             },
                             "notes": {
