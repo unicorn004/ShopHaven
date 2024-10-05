@@ -6,7 +6,7 @@ const { categoryModel } = require('../models/category');
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const validateAdmin = require("../middlewares/admin");
+const {validateAdmin} = require("../middlewares/admin");
 
 require("dotenv").config();
 

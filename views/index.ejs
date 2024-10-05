@@ -28,7 +28,7 @@
                     <% rnproducts.forEach(function(elem){ %>
                         <div class="flex w-32 flex-shrink-0 flex-col items-center">
                             <div class="relative">
-                                <img src="data:image/jpg;base64, <%= elem.image.toString('base64') %>"
+                                <img src="data:image/jpeg;base64, <%= elem.image.toString('base64') %>"
                                     alt="<%= elem.name %>" class="h-24 rounded">
                             </div>
                             <p class="text-sm text-center mt-2">
@@ -77,14 +77,14 @@
 
             <!-- Grocery & Kitchen Section -->
             <% for(let key in products){ %>
-                <div class="bg-white p-4 rounded-lg shadow mb-10">
+                <div class="bg-white p-4 rounded-lg shadow mb-32">
                     <h2 class="text-lg font-semibold">
                         <%= key %>
                     </h2>
                     <div class="grid grid-cols-4 gap-4 mt-4">
                         <% products[key].forEach(elem=>{ %>
                             <div class="flex flex-col items-center">
-                                <img src="data:image/jpg;base64, <%= elem.image.toString('base64') %>"
+                                <img src="data:image/jpeg;base64, <%= elem.image.toString('base64') %>"
                                     alt="<%= elem.name %>" class="w-24 rounded">
                                 <p class="text-sm text-center mt-2">
                                     <%= elem.name %>

@@ -2,14 +2,55 @@ const express = require('express');
 const router = express.Router();
 const { productModel, validateProduct } = require('../models/product');
 const { categoryModel, validateCategory } = require('../models/category');
+const { cartModel, validateCart } = require('../models/cart');
 const upload = require('../config/multer_config');
-const validateAdmin = require('../middlewares/admin');
+const {validateAdmin, userIsLoggedIn } = require('../middlewares/admin');
 
 // Get all products
-router.get('/', async function (req, res) {
+router.get('/', userIsLoggedIn, async function (req, res) {
     try {
-        const prods = await productModel.find(); // Await the promise
-        res.send(prods); 
+        const result = await productModel.aggregate([
+            {
+                $lookup: {
+                    from: 'categories', // The Category collection
+                    localField: 'category', // The field in the Product schema
+                    foreignField: '_id', // The field in the Category schema
+                    as: 'categoryDetails'
+                }
+            },
+            {
+                $unwind: '$categoryDetails' // Flatten the category details array
+            },
+            {
+                $group: {
+                    _id: '$categoryDetails.name', // Group by category name
+                    products: { $push: "$$ROOT" } // Push the entire product document
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    category: "$_id",
+                    products: { $slice: ["$products", 10] } // Get only the first 10 products from each group
+                }
+            }
+        ]);
+        let somethingInCart = false;
+        let cart = await cartModel.findOne({user: req.session.passport.user})
+        
+        if(cart && cart.products.length > 0) somethingInCart = true;
+
+        let rnproducts = await productModel.aggregate([{
+            $sample: {size: 3}
+        }])
+
+        // Restructure the array into an object
+        const formattedResult = result.reduce((acc, curr) => {
+            acc[curr.category] = curr.products;
+            return acc;
+        }, {});
+
+        res.render("index",{products: formattedResult, rnproducts, somethingInCart, cartCount: cart.products.length}); 
     } catch (error) {
         console.error(error); // Log the error for debugging
         res.status(500).json({ message: 'Internal server error' }); // Send an error response
@@ -90,7 +131,7 @@ router.post('/delete', validateAdmin, async function (req, res) {
         }
 
         // Redirect or send a success response
-        res.redirect('back');  // Assuming this is where you want to redirect
+        res.redirect(req.get('Referrer') || '/');  // Assuming this is where you want to redirect
         // Alternatively, you could send a success message:
         // res.json({ message: 'Product deleted successfully' });
 
