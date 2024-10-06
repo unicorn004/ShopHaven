@@ -1,6 +1,6 @@
 # ShopHaven
 
-ShopHaven is a fully functional e-commerce website built with Node.js, Express, MongoDB, and EJS. The application features user authentication, product management, and secure payment processing using Razorpay and Google OAuth.
+ShopHaven is a fully functional e-commerce website built with Node.js, Express, MongoDB, and EJS. The application features user authentication, product management, secure payment processing using Razorpay, and a dynamic map for real-time order tracking and delivery routing.
 
 ## Table of Contents
 
@@ -17,6 +17,8 @@ ShopHaven is a fully functional e-commerce website built with Node.js, Express, 
 - Secure payment integration with Razorpay
 - Admin dashboard for managing products and orders
 - Responsive design for both desktop and mobile
+- **Dynamic Map Integration**: Utilize Leaflet.js for real-time geolocation and route mapping for deliveries.
+- **Geocoding**: Users can easily input addresses with auto-suggestions, enhancing the order placement experience.
 
 ## Technologies Used
 
@@ -29,6 +31,8 @@ ShopHaven is a fully functional e-commerce website built with Node.js, Express, 
 - **Express-Session**: Middleware for session management
 - **dotenv**: For managing environment variables
 - **Cookie-Parser**: Middleware for cookie handling
+- **Leaflet.js**: JavaScript library for interactive maps
+- **OSM Nominatim**: Geocoding service for address resolution
 
 ## Installation
 
@@ -60,3 +64,4 @@ To set up the project locally, follow these steps:
 - User Authentication: Sign up or log in using Google OAuth.
 - Admin Dashboard: Manage products and orders through the admin routes.
 - Checkout: Complete your purchase using Razorpay.
+- Order Tracking: Use the integrated map to view real-time delivery routing and location.
