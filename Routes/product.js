@@ -42,7 +42,7 @@ router.get('/', userIsLoggedIn, async function (req, res) {
 
         let rnproducts = await productModel.aggregate([{ $sample: { size: 3 } }]) || [];
 
-        console.log(rnproducts); 
+        //console.log(rnproducts); 
 
         // Restructure the array into an object
         const formattedResult = result.reduce((acc, curr) => {
